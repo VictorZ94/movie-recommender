@@ -30,3 +30,6 @@ class Movie(models.Model):
     watched = models.BooleanField(default=False, null=True)
     # If this movie will be recommended
     recommended = models.BooleanField(default=False, null=True)
+
+    def __str__(self):
+        return self.original_title
