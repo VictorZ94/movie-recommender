@@ -1,15 +1,20 @@
 from . import views
 from .models import Movie
 from django.shortcuts import render
+import json
 
 # HINT: Create a view to provide movie recommendations list for the HTML template
 
 def movie_recommendation_view(request):
-    if request.method == "GET":
-      # The context/data to be presented in the HTML template
-      context = generate_movies_context()
-      # Render a HTML page with specified template and context
-      return render(request, 'movierecommender/movie_list.html', context)
+    if request.method == "POST":
+        search = request.POST["search"]
+        search_movies = Movie.objects.filter(original_title__contains=search).values()
+        return render(request, 'movierecommender/movie_list.html', {"movie_list": search_movies})
+
+    # The context/data to be presented in the HTML template
+    context = generate_movies_context()
+    # Render a HTML page with specified template and context
+    return render(request, 'movierecommender/movie_list.html', context)
 
 
 def generate_movies_context():
