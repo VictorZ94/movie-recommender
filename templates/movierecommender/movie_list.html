@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Personal Movie Recommendations</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        {% comment %}
+            <div class="card-columns">
+                <!--For each movie in the movie list, add a movie card-->
+                {% for movie in movie_list %}
+                <div class="col-auto mb-3">
+                    <div class="card">
+                        <!--Movie Poster image-->
+                        <img class="card-img-left"
+                            src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" 
+                            width="320" height="480">
+                        <div class="card-body bg-light">
+                            <!--Movie title-->
+                            <h5 class="card-title">{{movie.original_title}}</h5>
+                            <!--Movie overview-->
+                            <p class="card-text">{{movie.overview}}</p>
+                            <!--Movie genres-->
+                            <p class="card-text">Genres: <b>{{movie.genres}}</b></p>
+                            <!--Movie vote average-->
+                            <p class="card-text">Rating: <b>{{movie.vote_average}}</b></p>
+                            <!--Movie language and release date-->
+                            <p class="card-text">{{movie.original_language}}, {{movie.release_date}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endcomment %}
+        <div class="row">
+            {% for movie in movie_list %}
+                <div class="col mb-3">
+                    <img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" class="rounded mx-auto d-block" alt="movie image" width="250" height="350">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
