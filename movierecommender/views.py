@@ -39,3 +39,7 @@ def generate_movies_context():
         ).order_by('-vote_count')[:30]
     context['movie_list'] = movies
     return context
+
+def index(request):
+    movies = Movie.objects.all()[:10]
+    return render(request, 'index.html', {'movies': movies})
