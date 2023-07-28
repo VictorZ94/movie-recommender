@@ -5,38 +5,27 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container my-5">
-        {% comment %}
-            <div class="card-columns">
-                <!--For each movie in the movie list, add a movie card-->
-                {% for movie in movie_list %}
-                <div class="col-auto mb-3">
-                    <div class="card">
-                        <!--Movie Poster image-->
-                        <img class="card-img-left"
-                            src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" 
-                            width="320" height="480">
-                        <div class="card-body bg-light">
-                            <!--Movie title-->
-                            <h5 class="card-title">{{movie.original_title}}</h5>
-                            <!--Movie overview-->
-                            <p class="card-text">{{movie.overview}}</p>
-                            <!--Movie genres-->
-                            <p class="card-text">Genres: <b>{{movie.genres}}</b></p>
-                            <!--Movie vote average-->
-                            <p class="card-text">Rating: <b>{{movie.vote_average}}</b></p>
-                            <!--Movie language and release date-->
-                            <p class="card-text">{{movie.original_language}}, {{movie.release_date}}</p>
+    <div class="container mx-auto px-5 relative">
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center">
+            {% for movie in movie_list %}
+                <div class="relative show-overview hover:cursor-pointer w-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" class="rounded mx-auto d-block" alt="movie image">
+                    <div class="p-5">
+                        <h6 class="mb-2 text-2xl font-bold tracking-tight text-gray-600 dark:text-white">{{movie.original_title}}</h6>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                            </svg>
+                            <p class="ml-2 text-sm font-bold text-gray-900 dark:text-white">{{movie.vote_average}} / 10</p>
+                            <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{movie.vote_count}} reviews</span>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-            </div>
-        {% endcomment %}
-        <div class="row">
-            {% for movie in movie_list %}
-                <div class="col mb-3">
-                    <img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" class="rounded mx-auto d-block" alt="movie image" width="250" height="350">
+                    <span class="overview bg-white dark:bg-gray-900 text-sm rounded-lg dark:text-white w-64 z-10 inline-block top-0 left-3/4 m-2 hidden absolute">
+                        <div class="p-2">
+                            <p>{{movie.overview}}</p>
+                        </div>
+                    </span>
                 </div>
             {% endfor %}
         </div>
