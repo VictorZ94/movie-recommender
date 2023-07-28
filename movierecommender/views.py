@@ -42,4 +42,11 @@ def generate_movies_context():
 
 def index(request):
     movies = Movie.objects.all()[:10]
+    if request.method == 'POST':
+        watched = request.POST['watched']
+        movie = Movie.objects.get(original_title=watched)
+        movie.watched = False if movie.watched == 1 else True
+        movie.save()
+        return render(request, 'index.html', {'movies': movies})
+
     return render(request, 'index.html', {'movies': movies})
