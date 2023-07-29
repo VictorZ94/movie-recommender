@@ -23,4 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('movierecommender/', include('movierecommender.urls')),
     path('', views.index, name='home')
-] + static(settings.STATIC_URL, document_root=settings.COMPRESS_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
