@@ -1,18 +1,14 @@
-{% load compress %}
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Django + Tailwind CSS + Flowbite</title>
+        <title>Movie recommender application</title>
 
-        {% compress css %}
-            <link rel="stylesheet" href="{% static 'src/output.css' %}">
-        {% endcompress %}
+        <link rel="stylesheet" href="{% static 'src/output.css' %}">
     </head>
     <body class="bg-white dark:bg-gray-900">
         <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b dark:border-gray-600">
@@ -63,8 +59,6 @@
             </div>
         </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
-        {% compress js %}
-            <script src="{% static 'src/script.js' %}"></script>
-        {% endcompress %}
+        <script src="{% static 'src/script.js' %}"></script>
     </body>
 </html>
