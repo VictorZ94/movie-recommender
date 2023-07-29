@@ -41,7 +41,7 @@ def generate_movies_context():
     return context
 
 def index(request):
-    movies = Movie.objects.all()[:10]
+    movies = Movie.objects.all()[10:20]
     if request.method == 'POST':
         watched = request.POST['watched']
         movie = Movie.objects.get(original_title=watched)
