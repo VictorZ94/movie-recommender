@@ -14,8 +14,6 @@ def movie_recommendation_view(request):
     context = generate_movies_context()
     # Render a HTML page with specified template and context
     return render(request, 'movierecommender/movie_list.html', context)
-
-
 def generate_movies_context():
     context = {}
     # Show only movies in recommendation list
@@ -43,10 +41,15 @@ def generate_movies_context():
 def index(request):
     movies = Movie.objects.all()[10:20]
     if request.method == 'POST':
+        if request.POST.get('search') is not None:
+            search = request.POST['search']
+            search_movies = Movie.objects.filter(original_title__contains=search).values()
+            return render(request, 'index.html', {"movies": search_movies})
+
         watched = request.POST['watched']
-        movie = Movie.objects.get(original_title=watched)
+        movie = Movie.objects.get(imdb_id=watched)
         movie.watched = False if movie.watched == 1 else True
         movie.save()
         return render(request, 'index.html', {'movies': movies})
 
-    return render(request, 'index.html', {'movies': movies})
+    return render(request, 'movierecommender/index.html', {'movies': movies})
