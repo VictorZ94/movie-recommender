@@ -22,5 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('movierecommender/', include('movierecommender.urls')),
-    path('', views.index, name='home')
+    path('', views.index, name='home'),
+
+    # chat application
+    path('chatbot/', include('chatbot.urls')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

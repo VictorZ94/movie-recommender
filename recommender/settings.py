@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
+OPENAI_API_KEY = config('OPENAI_API_KEY')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
+    'chatbot'
 ]
 
 MIDDLEWARE = [
