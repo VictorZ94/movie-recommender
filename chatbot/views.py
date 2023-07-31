@@ -30,12 +30,14 @@ def ask_openai(message):
 def chatbot(request):
   chats = Chat.objects.filter(user=request.user)
   if request.method == 'POST':
+    print("Method POST invoked")
     message = request.POST.get('message')
     response = ask_openai(message)
 
     chat = Chat(user=request.user, message=message, response=response)
     chat.save()
     return JsonResponse({'message': message , 'response': response})
+  print("Method GET invoked")
   return render(request, 'chatbot/chatbot.html', {'chats': chats})
 
 def login(request):
