@@ -140,21 +140,38 @@
           <span class="text-xs text-gray-500 leading-none">2 min ago</span>
         </div>
       </li>
-      <!-- 2do item -->
-      <li class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
-        <div>
-          <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
-            <h6 class="font-semibold">You</h6>
-            <p class="text-md">Lorem ipsum dolor sit amet.</p>
-          </div>
-          <span class="text-xs text-gray-500 leading-none">2 min ago</span>
-        </div>
-        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
-          <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-            <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-          </div>
-        </div>
-      </li>
+      {% for chat in chats %}
+        {% if chat.user == request.user %}
+          <li class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+            <div>
+              <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                <h6 class="font-semibold">You</h6>
+                <p class="text-md">{{ chat.message }}.</p>
+              </div>
+              <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+            </div>
+            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+              <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+              </div>
+            </div>
+          </li>
+          <li class="flex w-full mt-2 space-x-3 max-w-xs">
+            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+              <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                <span class="font-medium text-gray-600 dark:text-gray-300">AI</span>
+              </div>
+            </div>
+            <div>
+              <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                <h6 class="font-semibold">AI Chatbot</h6>
+                <p class="text-md">{{ chat.message }}</p>
+              </div>
+              <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
 
     <form class="message-form">
