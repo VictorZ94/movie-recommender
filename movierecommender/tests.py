@@ -12,6 +12,3 @@ class MovieTestCase(TestCase):
     def test_movies(self):
         john = Movie.objects.get(original_title="Toy Story")
         print(john)
-
-
-
