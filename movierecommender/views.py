@@ -1,6 +1,7 @@
 from . import views
 from .models import Movie
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 # HINT: Create a view to provide movie recommendations list for the HTML template
 
@@ -14,6 +15,7 @@ def movie_recommendation_view(request):
     context = generate_movies_context()
     # Render a HTML page with specified template and context
     return render(request, 'movierecommender/movie_list.html', context)
+
 def generate_movies_context():
     context = {}
     # Show only movies in recommendation list
@@ -39,17 +41,48 @@ def generate_movies_context():
     return context
 
 def index(request):
-    movies = Movie.objects.all()[10:20]
     if request.method == 'POST':
         if request.POST.get('search') is not None:
             search = request.POST['search']
             search_movies = Movie.objects.filter(original_title__contains=search).values()
-            return render(request, 'index.html', {"movies": search_movies})
+            paginator = Paginator(search_movies, 20)
+            current_page = int(request.GET.get('page') or 1)
+            movies = paginator.get_page(current_page)
+            return render(
+                request,
+                'movierecommender/index.html',
+                {
+                    'movies': movies,
+                    'number_of_pages': movies.paginator.num_pages,
+                    'current_page': current_page
+                }
+            )
 
         watched = request.POST['watched']
         movie = Movie.objects.get(imdb_id=watched)
         movie.watched = False if movie.watched == 1 else True
         movie.save()
-        return render(request, 'index.html', {'movies': movies})
+        return render(
+            request,
+            'movierecommender/index.html',
+            {
+                'movies': movies,
+                'number_of_pages': movies.paginator.num_pages,
+                'current_page': current_page
+            }
+        )
 
-    return render(request, 'movierecommender/index.html', {'movies': movies})
+    movies_list = Movie.objects.all()
+    paginator = Paginator(movies_list, 20)
+    current_page = int(request.GET.get('page') or 1)
+    movies = paginator.get_page(current_page)
+
+    return render(
+        request,
+        'movierecommender/index.html', 
+        {
+            'movies': movies,
+            'number_of_pages': movies.paginator.num_pages,
+            'current_page': current_page
+        }
+    )
