@@ -41,6 +41,11 @@ def generate_movies_context():
     return context
 
 def index(request):
+    movies_list = Movie.objects.all()
+    paginator = Paginator(movies_list, 20)
+    current_page = int(request.GET.get('page') or 1)
+    movies = paginator.get_page(current_page)
+
     if request.method == 'POST':
         if request.POST.get('search') is not None:
             search = request.POST['search']
@@ -71,11 +76,6 @@ def index(request):
                 'current_page': current_page
             }
         )
-
-    movies_list = Movie.objects.all()
-    paginator = Paginator(movies_list, 20)
-    current_page = int(request.GET.get('page') or 1)
-    movies = paginator.get_page(current_page)
 
     return render(
         request,
